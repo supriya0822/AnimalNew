@@ -1,0 +1,229 @@
+<html><head>
+    <title>QR Code Generator</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'>
+     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;display=swap'>"
+     <style>
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6ec4f23d !important;
+  min-height: 720px;
+  font-family: "Poppins";
+}
+.video-container {
+  width: 560px; /* Adjust width as needed */
+  height: 315px; /* Adjust height as needed */
+  margin: 50px auto; /* Center the video vertically and horizontally */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden; /* Hide any content that might overflow the container */
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  padding: 10px 0;
+  text-align: center;
+  z-index: 1000;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#main-page-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.user-input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  margin-top: 100px;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #0b0b0b;
+  margin-bottom: 20px;
+}
+
+.sub-title {
+  font-size: 1.5rem;
+  color: #0e0d0d;
+  opacity: 1.5;
+  margin-bottom: 50px;
+}
+
+.user-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.user-input input {
+  width: 80%;
+  max-width: 35rem;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #4c82af;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin: 1rem 1rem 2rem 1rem;
+  color: black;
+}
+
+.user-input input::placeholder {
+  color: #eee5e9;
+  color: #edeff4;
+}
+
+.button {
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.5rem 2.5rem;
+  margin-bottom: 3rem;
+  background-color: #4c82af;
+  color: black;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.6rem;
+}
+
+.button i {
+  margin-left: 1rem;
+}
+
+.qr-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  margin-top: 50px;
+}
+
+.qr-code {
+  display: flex;
+  border-radius: 1rem;
+  background-color: #4c82af;
+  width: fit-content;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.qr-code button {
+  display: flex;
+  justify-content: center;
+  background-color: #1f1f1f;
+  color: #eae6e5;
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-top: 2.5rem;
+  border-radius: 1rem;
+}
+
+.qr-code button a {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: #4c82af;
+  padding: 1rem;
+}
+
+.qr-code button a i {
+  margin-left: 0.5rem;
+}
+
+#downloadBtn {
+  width: 150px;
+  height: 40px;
+  font-size: 1.2rem;
+  background-color: #4c82af;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+     </style>
+   </head>
+   <body>
+     <header>
+       <div id="navbar">
+          <a href="services.php" id="main-page-link">Go Back To Main Page</a>
+       </div>
+     </header>
+     <div class="user-input-section">
+       <section class="heading">
+         <div class="title">QR TAG COLLAR</div>
+         <div class="sub-title">Stay connected with your furry friend using our QR collar tag, ensuring their safety while enabling easy access to vital information.</div>
+       </section>
+       <section class="user-input">
+         <input type="text" placeholder="Type something..." name="input_text" id="input_text" autocomplete="off">
+         <button class="button" type="submit" onclick="generateQRCode()">Generate<i class="fa-solid fa-rotate"></i></button>
+       </section>
+     </div>
+     <div class="qr-code-container">
+       <div class="qr-code" id="qrCode"></div>
+       
+     </div>
+     <div class="video-container">
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/iuR9kc8N0qY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+     </div>
+   
+     <script src="qrcode.js"></script>
+     <script>
+       function generateQRCode() {
+         const inputText = document.getElementById("input_text").value;
+         const qrCode = new QRCode(document.getElementById("qrCode"), {
+           text: inputText,
+           width: 200,
+           height: 200,
+           colorDark: "#000000",
+           colorLight: "#ffffff",
+           correctLevel: QRCode.CorrectLevel.H
+         });
+   
+         // Create a download link for the QR code image
+         const qrCodeImage = document.getElementById("qrCode").querySelector("img");
+         const downloadLink = document.createElement("a");
+         downloadLink.href = qrCodeImage.src;
+         downloadLink.download = "qrcode.png";
+         document.body.appendChild(downloadLink);
+         downloadLink.click();
+         document.body.removeChild(downloadLink);
+       }
+     </script>
+   </body>
+   </html>
